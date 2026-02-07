@@ -34,6 +34,8 @@ All custom elisp modules are centralized in =~/.local/elisp/myload.el=.
 
 * UI and Appearance
 
+My UI and appearance configuration is geared toward creating a more distraction-free writing environment.
+
 ** Font Configuration
 
 #+begin_src emacs-lisp
@@ -71,15 +73,18 @@ Disable menu bar, tool bar, scroll bar; enable time display and line highlightin
   (set-face-background 'internal-border "SlateGray4")
   (setq image-animate-loop t)
 
-  (setq spacious-padding-widths
-       '( :internal-border-width 20
-          :header-line-width 20
-          :mode-line-width 1
-          :tab-width 4
-          :right-divider-width 15
-          :scroll-bar-width 8))
-
-  (spacious-padding-mode 1)
+  (use-package spacious-padding
+    :ensure t
+    :custom
+    (spacious-padding-widths
+     '( :internal-border-width 20
+        :header-line-width 20
+        :mode-line-width 1
+        :tab-width 4
+        :right-divider-width 15
+        :scroll-bar-width 8))
+    :init
+    (spacious-padding-mode 1))
 #+end_src
 
 ** Theme
@@ -129,13 +134,19 @@ Disable menu bar, tool bar, scroll bar; enable time display and line highlightin
 ** Marginalia
 
 #+begin_src emacs-lisp
-(marginalia-mode 1)
+(use-package marginalia
+  :ensure t
+  :init
+  (marginalia-mode 1))
 #+end_src
 
 ** Company Mode
 
 #+begin_src emacs-lisp
-(global-company-mode)
+(use-package company
+  :ensure t
+  :init
+  (global-company-mode))
 #+end_src
 
 * Org Mode
@@ -218,9 +229,10 @@ Disable menu bar, tool bar, scroll bar; enable time display and line highlightin
 ** Dictionary Keybindings
 
 #+begin_src emacs-lisp
-(require 'dictionary)
-(global-set-key "\C-cs" 'dictionary-search)
-(global-set-key "\C-cm" 'dictionary-match-words)
+(use-package dictionary
+  :ensure t
+  :bind (("\C-cs" . dictionary-search)
+         ("\C-cm" . dictionary-match-words)))
 #+end_src
 
 ** Other Keybindings
@@ -338,12 +350,6 @@ Disable menu bar, tool bar, scroll bar; enable time display and line highlightin
 #+begin_src emacs-lisp
 (use-package htmlize :ensure t)
 (use-package simple-httpd :ensure t)
-#+end_src
-
-** Denote
-
-#+begin_src emacs-lisp
-(require 'denote)
 #+end_src
 
 ** File Manager
