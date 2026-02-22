@@ -1,0 +1,23 @@
+#+TITLE: dotfiles
+#+AUTHOR: Chris Maiorana
+
+My literate configuration files, tangled from org-mode as God intended.
+
+If you're reading this, you're either me or you're lost.
+Either way, welcome.
+
+** What's Here
+
+| File           | Tangles To     | Does What                                                            |
+|----------------+----------------+----------------------------------------------------------------------|
+| =MyConf.org=   | =~/.emacs=     | Emacs config (the important one)                                     |
+| =gitnbash.org= | =~/.gitconfig= | Git settings and aliases                                             |
+| =gitnbash.org= | =~/.bashrc=    | Shell config, trimmed of its Ubuntu bloat and given a proper haircut |
+
+** Usage
+
+Open an org file in Emacs and run =C-c C-v t= (=org-babel-tangle=) to generate the dotfiles.
+
+** License
+
+[[file:LICENSE][MIT]] -- Do whatever you like, but don't blame me when your shell does something weird.

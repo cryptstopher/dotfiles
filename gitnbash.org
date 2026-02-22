@@ -1,0 +1,107 @@
+#+TITLE: Git & Bash Configuration
+#+AUTHOR: Chris Maiorana
+
+
+* Git
+:PROPERTIES:
+:header-args: :tangle ~/.gitconfig
+:END:
+
+There is mostly standard stuff in here, except I use "drafting" as the default branch for writing projects and master for code projects.
+
+#+begin_src conf
+  [user]
+  	name = Chris Maiorana
+  	email = cryptstopher@users.noreply.github.com
+  [init]
+  	defaultBranch = drafting
+  [alias]
+  	lg = log --oneline --graph --all
+  	st = status
+  	cm = commit
+#+end_src
+
+* Bash
+:PROPERTIES:
+:header-args: :tangle ~/.bashrc :shebang "#!/bin/bash"
+:END:
+
+** Core
+
+#+begin_src bash
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+HISTCONTROL=ignoreboth
+shopt -s histappend
+HISTSIZE=1000
+HISTFILESIZE=2000
+shopt -s checkwinsize
+#+end_src
+
+** Prompt
+
+#+begin_src bash
+PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+#+end_src
+
+** Colors and Aliases
+
+#+begin_src bash
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    alias grep='grep --color=auto'
+fi
+
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+#+end_src
+
+** Environment
+
+Apparently my browser is set to brave, but I don't recall using it.
+Not sure which programs use these variable when launching a browser.
+Emacs is my editor, by the way.
+
+#+begin_src bash
+BROWSER='brave'
+export EDITOR=emacs
+export PATH="$HOME/.local/bin:$PATH"
+#+end_src
+
+** Guix
+
+I like use the GNU Guix package installer.
+To install Guix on a foreign distro (i.e. not Guix System):
+
+#+begin_example
+cd /tmp
+wget https://git.savannah.gnu.org/cgit/guix.git/plain/etc/guix-install.sh
+chmod +x guix-install.sh
+sudo ./guix-install.sh
+#+end_example
+
+After install, pull the latest packages with ~guix pull~ and restart your shell.
+The snippet below tags the prompt with ~[env]~ when inside a ~guix shell~.
+
+#+begin_src bash
+if [ -n "$GUIX_ENVIRONMENT" ]; then
+    if [[ $PS1 =~ (.*)"\\$" ]]; then
+        PS1="${BASH_REMATCH[1]} [env]\\\$ "
+    fi
+fi
+#+end_src
+
+** External Sources
+
+Program paths and project aliases live in separate files so they're easy to edit without re-tangling.
+
+#+begin_src bash
+[ -f ~/.program-paths.sh ] && . ~/.program-paths.sh
+[ -f ~/.project-aliases.sh ] && . ~/.project-aliases.sh
+#+end_src
