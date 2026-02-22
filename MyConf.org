@@ -324,24 +324,6 @@ Note: I'm not sure if I still need this.
 (use-package magit :ensure t)
 #+end_src
 
-** Openwith
-
-#+begin_src emacs-lisp
-(use-package openwith
-  :ensure t
-  :config
-  (setq openwith-associations
-        '(("\\.pdf\\'" "evince" (file))
-          ("\\.doc\\'" "libreoffice" (file))
-          ("\\.docx\\'" "libreoffice" (file))
-          ("\\.xls\\'" "libreoffice" (file))
-          ("\\.xlsx\\'" "libreoffice" (file))
-          ("\\.ppt\\'" "libreoffice" (file))
-          ("\\.pptx\\'" "libreoffice" (file))
-          ("\\.scrivx\\'" "/home/chris/Apps/Scrivener-1.9.0.1beta-x86_64_english_only-20211229.AppImage" (file))))
-  (openwith-mode 1))
-#+end_src
-
 ** HTMLize and Simple HTTPD
 
 #+begin_src emacs-lisp
@@ -351,29 +333,12 @@ Note: I'm not sure if I still need this.
 
 ** File Manager
 
+Opens thunar---if you use it.
+
 #+begin_src emacs-lisp
 (defun open-thunar ()
   (interactive)
   (start-process "thunar" nil "thunar"))
-#+end_src
-
-* AI and LLM Integration
-
-** GPTel (LM Studio)
-
-#+begin_src emacs-lisp
-(use-package gptel
-  :ensure t
-  :config
-  (setq gptel-model "your-model-name"
-        gptel-backend (gptel-make-openai "LMStudio"
-                        :host "localhost:1234"
-                        :endpoint "/v1/chat/completions"
-                        :stream t
-                        :key "not-needed"
-                        :models '("wizard-vicuna-13b-uncensored"))))
-(setq gptel-default-mode 'org-mode)
-(setq gptel-stream t)
 #+end_src
 
 * Custom Functions
