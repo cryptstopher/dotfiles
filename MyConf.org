@@ -10,7 +10,7 @@
 
 * External Elisp Modules
 
-All custom elisp modules are centralized in =~/.local/elisp/myload.el=.
+All custom elisp modules are centralized in ~~/.local/elisp/myload.el~.
 
 #+begin_src emacs-lisp
 (load-file "~/.local/elisp/myload.el")
@@ -90,15 +90,10 @@ Disable menu bar, tool bar, scroll bar; enable time display and line highlightin
 ** Theme
 
 #+begin_src emacs-lisp
-(use-package doom-themes
+(use-package weyland-yutani-theme
   :ensure t
   :config
-  ;; Optional global settings
-  (setq doom-themes-enable-bold t
-        doom-themes-enable-italic t)
-
-  ;; Load doom-dracula
-  (load-theme 'doom-dracula t))
+  (load-theme 'weyland-yutani t))
 #+end_src
 
 * Completion Framework
@@ -202,6 +197,8 @@ Disable menu bar, tool bar, scroll bar; enable time display and line highlightin
 #+end_src
 
 ** Clock Hooks
+
+Note: I'm not sure if I still need this.
 
 #+begin_src emacs-lisp
 (defun csm-modeline-update-on-org-clock ()
